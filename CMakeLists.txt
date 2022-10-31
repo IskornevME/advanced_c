@@ -9,6 +9,7 @@ add_subdirectory(task)
 
 add_executable(${PROJECT_NAME} main.c)
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -coverage -lgcov")
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${DB_LIB_INCLUDE_DIRS} ${TASK_LIB_INCLUDE_DIRS})

@@ -1,6 +1,5 @@
-#ifndef STRUCTURE_H
-#define STRUCTURE_H
-
+#ifndef DATABASE_STRUCTURE_H_
+#define DATABASE_STRUCTURE_H_
 
 struct Time {
     int hour;
@@ -9,7 +8,7 @@ struct Time {
 
 enum Type {LECTURE, SEMINAR};
 
-struct Structure {
+struct LessonInfo {
     int week_day;
     struct Time start_time;
     enum Type type;
@@ -21,5 +20,4 @@ struct Structure {
     int group;
 };
 
-
-#endif // STRUCTURE_H 
+#endif  // DATABASE_STRUCTURE_H_

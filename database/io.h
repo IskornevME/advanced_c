@@ -1,11 +1,11 @@
-#ifndef IO_H
-#define IO_H
+#ifndef DATABASE_IO_H_
+#define DATABASE_IO_H_
 
 #include "structure.h"
 #include <stddef.h>
 
-int input_from_file(const char *filename, struct Structure **array, size_t *size);
-void delete_memory(struct Structure *array, size_t size);
-void print(struct Structure structure);
+int input_from_file(const char *filename, struct LessonInfo **array, size_t *size);
+void delete_memory(struct LessonInfo *array, size_t size);
+// void print(struct LessonInfo structure);
 
-#endif // IO_H 
+#endif  // DATABASE_IO_H_
