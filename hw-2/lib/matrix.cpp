@@ -108,10 +108,22 @@ Matrix &Matrix::operator=(Matrix &&rhs) {
 }
 
 double &Matrix::at(size_t i, size_t j) {
+    if (i >= _row) {
+        throw std::out_of_range("Index out of range. Incorrent row number");
+    }
+    if (j >= _col) {
+        throw std::out_of_range("Index out of range. Incorrent column number");
+    }
     return _data[i * _col + j];
 }
 
 const double &Matrix::at(size_t i, size_t j) const {
+    if (i >= _row) {
+        throw std::out_of_range("Index out of range. Incorrent row number");
+    }
+    if (j >= _col) {
+        throw std::out_of_range("Index out of range. Incorrent column number");
+    }
     return _data[i * _col + j];
 }
 

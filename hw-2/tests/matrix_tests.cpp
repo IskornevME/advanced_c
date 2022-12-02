@@ -449,6 +449,12 @@ TEST(matrix, inverse_matrix) {
             EXPECT_NEAR(res_b.at(i, j), true_res[i * res_b.col() + j], EPS);
         }
     }
+}
 
-
+TEST (matrix, ind_validation) {
+    Matrix A {{1, -4, 0, 7}, 2, 2};
+    EXPECT_EQ(-4, A.at(0, 1));
+    EXPECT_THROW(A.at(0, 3), std::out_of_range);
+    EXPECT_THROW(A.at(5, 1), std::out_of_range);
+    EXPECT_THROW(A.at(-2, -1), std::out_of_range);
 }

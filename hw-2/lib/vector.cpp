@@ -61,7 +61,7 @@ Vector &Vector::operator=(Vector &&rhs) {
 
 double &Vector::operator[](size_t i) {
     if (i >= _size) {
-        throw std::out_of_range("");
+        throw std::out_of_range("Index out of range");
     }
 
     return _data[i];
@@ -69,7 +69,7 @@ double &Vector::operator[](size_t i) {
 
 const double &Vector::operator[](size_t i) const {
     if (i >= _size) {
-        throw std::out_of_range("");
+        throw std::out_of_range("Index out of range");
     }
 
     return _data[i];

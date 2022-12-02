@@ -156,3 +156,11 @@ TEST(vector, mult_matrix) {
     EXPECT_NEAR(c[1], 18, EPS);
     EXPECT_NEAR(c[2], 21, EPS);
 }
+
+TEST(vector, ind_validation) {
+    Vector a {{1, 3, 0}};
+    EXPECT_THROW(a[-1], std::out_of_range);
+    EXPECT_NEAR(a[0], 1, EPS);
+    EXPECT_NEAR(a[2], 0, EPS);
+    EXPECT_THROW(a[3], std::out_of_range);
+}
