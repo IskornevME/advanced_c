@@ -475,7 +475,7 @@ void Set<T>::_swap(BaseNode *n1, BaseNode *p1, BaseNode *n2, BaseNode *p2) {
     }
 
     if (p2 == n1) {
-        bool b = (p1 != nullptr) && (p1->left == n1);
+        bool b1 = (p1 != nullptr) && (p1->left == n1);
         if (n1->right == n2) {
             BaseNode *a = n1->left;
             BaseNode *b = n2->left;
@@ -498,7 +498,7 @@ void Set<T>::_swap(BaseNode *n1, BaseNode *p1, BaseNode *n2, BaseNode *p2) {
         if (p1 == nullptr) {
             _root = n2;
         } else {
-            (b ? p1->left : p1->right) = n2;
+            (b1 ? p1->left : p1->right) = n2;
         }
     } else {
         BaseNode *l1 = n1->left;
