@@ -305,25 +305,7 @@ void Set<T>::insert(const T &key) {
 
 template <class T>
 void Set<T>::_insert(BaseNode *&n, const T &key) {
-    // Node *cur = n;
-
-    // if (cur == nullptr) {
-    //     n = create_node(key);
-    //     return;
-    // }
-    // if (cur->data == key) {
-    //     return;
-    // } else if (cur->data < key) {
-    //     _insert(cur->right, key);
-    // } else {
-    //     _insert(cur->left, key);
-    // }
-
     T &data = static_cast<Node *>(n)->data;
-
-    // if (data == key) {
-    //     return;
-    // }
 
     if (data < key) {
         if (n->right != nullptr) {
@@ -342,8 +324,6 @@ void Set<T>::_insert(BaseNode *&n, const T &key) {
 
             _size++;
         }
-        // _set_length(n);
-        // _balance(n->right);
     } else if (key < data) {
         if (n->left != nullptr) {
             _insert(n->left, key);
@@ -361,8 +341,6 @@ void Set<T>::_insert(BaseNode *&n, const T &key) {
 
             _size++;
         }
-        // _set_length(n);
-        // _balance(n->left);
     } else {
         return;
     }
@@ -510,14 +488,6 @@ void Set<T>::_swap(BaseNode *n1, BaseNode *p1, BaseNode *n2, BaseNode *p2) {
         bool b1 = (p1 != nullptr) && (p1->left == n1);
         bool b2 = (p2->left == n2);
 
-        // if (p1 && p1->left != n1 && p1->right != n1) {
-        //     printf("NOT parent of n1\n");
-        // }
-
-        // if (p2 && p2->left != n2 && p2->right != n2) {
-        //     printf("NOT parent of n2\n");
-        // }
-
         if (p1 == nullptr) {
             _root = n2;
         } else {
@@ -538,7 +508,6 @@ void Set<T>::_swap(BaseNode *n1, BaseNode *p1, BaseNode *n2, BaseNode *p2) {
 template <class T>
 void Set<T>::_erase(BaseNode *&n, const T &key, BaseNode *p) {
     BaseNode *cur = n;
-
     if (cur == nullptr) {
         return;
     }
@@ -566,7 +535,6 @@ void Set<T>::_erase(BaseNode *&n, const T &key, BaseNode *p) {
             delete cur;
             return;
         }
-
         if (cur->right == nullptr) {
             n = cur->left;
 
@@ -581,20 +549,23 @@ void Set<T>::_erase(BaseNode *&n, const T &key, BaseNode *p) {
             delete cur;
             return;
         }
+
         if (_get_balance(cur) > 0) {
             BaseNode *closest_parent = cur;
-            BaseNode *&closest = cur->right;
+            BaseNode *closest = cur->right;
             while (closest->left != nullptr) {
                 closest_parent = closest;
                 closest = closest->left;
             }
+            // print_tree();
             _swap(cur, p, closest, closest_parent);
+            // print_tree();
             _erase(n->right, key, n);
             _set_length(n);
             return;
         } else {
             BaseNode *closest_parent = cur;
-            BaseNode *&closest = cur->left;
+            BaseNode *closest = cur->left;
             while (closest->right != nullptr) {
                 closest_parent = closest;
                 closest = closest->right;
@@ -604,48 +575,8 @@ void Set<T>::_erase(BaseNode *&n, const T &key, BaseNode *p) {
             _set_length(n);
             return;
         }
-        // if (_get_balance(cur) > 0) {
-            // BaseNode *closest_parent = cur;
-            // BaseNode *&closest = cur->right;
-            // // BaseNode *&closest = cur->next->next->left;
-            // while (closest->left != nullptr) {
-            //     closest_parent = closest;
-            //     closest = closest->left;
-            // }
-            // // BaseNode *tmp = closest;
-            // print_tree();
-            // _swap(cur, p, closest, closest_parent);
-            // print_tree();
-            // // static_cast<Node *>(cur)->data = static_cast<Node *>(closest)->data;
-
-            // // printf("..%d\n", data);
-            // // printf("..%d\n", static_cast<Node *>(closest_parent)->data);
-            // // printf("parent..%d\n", static_cast<Node *>(p)->data);
-            // _erase(n->right, key, n);
-            // // _erase(cur, key, p);
-            // _set_length(n);
-            // return;
-        //
-        // else {
-        //     BaseNode *closest_parent = cur;
-        //     BaseNode *&closest = cur->left;
-        //     while ()
-        //     for (; (*closest)->right; closest = &((*closest)->right))
-        //         ;
-        //     cur->key = (*closest)->key;
-        //     cur->data = (*closest)->data;
-        //     removeFromTree(&(cur->left), (*closest)->key);
-        //     _set_length(cur);
-        //     return cur->length;
-        // }
     }
-    // if (key < data) {
-    //     _erase(cur->left, key, cur);
-    //     _set_length(cur);
-    // } else {
-    //     _erase(cur->right, key, cur);
-    //     _set_length(cur);
-    // }
+
     _balance(n);
 }
 
