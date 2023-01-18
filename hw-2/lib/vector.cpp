@@ -67,7 +67,7 @@ double &Vector::operator[](size_t i) {
     return _data[i];
 }
 
-const double &Vector::operator[](size_t i) const {
+double Vector::operator[](size_t i) const {
     if (i >= _size) {
         throw std::out_of_range("Index out of range");
     }
@@ -145,7 +145,7 @@ Vector Vector::operator*(const Vector &rhs) const {
     return tmp;
 }
 
-Vector &Vector::operator+=(const double &rhs) {
+Vector &Vector::operator+=(double rhs) {
     for (size_t i = 0; i < _size; i++) {
         _data[i] += rhs;
     }
@@ -153,7 +153,7 @@ Vector &Vector::operator+=(const double &rhs) {
     return *this;
 }
 
-Vector &Vector::operator-=(const double &rhs) {
+Vector &Vector::operator-=(double rhs) {
     for (size_t i = 0; i < _size; i++) {
         _data[i] -= rhs;
     }
@@ -161,7 +161,7 @@ Vector &Vector::operator-=(const double &rhs) {
     return *this;
 }
 
-Vector &Vector::operator*=(const double &rhs) {
+Vector &Vector::operator*=(double rhs) {
     for (size_t i = 0; i < _size; i++) {
         _data[i] *= rhs;
     }
@@ -169,19 +169,19 @@ Vector &Vector::operator*=(const double &rhs) {
     return *this;
 }
 
-Vector Vector::operator+(const double &rhs) const {
+Vector Vector::operator+(double rhs) const {
     Vector tmp {*this};
     tmp += rhs;
     return tmp;
 }
 
-Vector Vector::operator-(const double &rhs) const {
+Vector Vector::operator-(double rhs) const {
     Vector tmp {*this};
     tmp -= rhs;
     return tmp;
 }
 
-Vector Vector::operator*(const double &rhs) const {
+Vector Vector::operator*(double rhs) const {
     Vector tmp {*this};
     tmp *= rhs;
     return tmp;
@@ -204,14 +204,14 @@ Vector Vector::mult(const Matrix &rhs) const {
     return res;
 }
 
-Vector operator+(const double &lhs, const Vector &rhs) {
+Vector operator+(double lhs, const Vector &rhs) {
     return rhs + lhs;
 }
 
-Vector operator-(const double &lhs, const Vector &rhs) {
+Vector operator-(double lhs, const Vector &rhs) {
     return -(rhs - lhs);
 }
 
-Vector operator*(const double &lhs, const Vector &rhs) {
+Vector operator*(double lhs, const Vector &rhs) {
     return rhs * lhs;
 }

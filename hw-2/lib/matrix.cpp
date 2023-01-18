@@ -75,10 +75,6 @@ Matrix::Matrix(const std::vector<Vector> &rhs) {
     }
 }
 
-// Vector a {{}};
-// Vector b {{}};
-// Matrix c {{a, b}};
-
 Matrix &Matrix::operator=(const Matrix &rhs) {
     if (this == &rhs) {
         return *this;
@@ -117,7 +113,7 @@ double &Matrix::at(size_t i, size_t j) {
     return _data[i * _col + j];
 }
 
-const double &Matrix::at(size_t i, size_t j) const {
+double Matrix::at(size_t i, size_t j) const {
     if (i >= _row) {
         throw std::out_of_range("Index out of range. Incorrent row number");
     }
@@ -321,7 +317,7 @@ Vector Matrix::mult(const Vector &rhs) const {
     return res;
 }
 
-Matrix &Matrix::operator+=(const double &rhs) {
+Matrix &Matrix::operator+=(double rhs) {
     for (size_t i = 0; i < _row; i++) {
         for (size_t j = 0; j < _col; j++) {
             this->at(i, j) += rhs;
@@ -331,7 +327,7 @@ Matrix &Matrix::operator+=(const double &rhs) {
     return *this;
 }
 
-Matrix &Matrix::operator-=(const double &rhs) {
+Matrix &Matrix::operator-=(double rhs) {
     for (size_t i = 0; i < _row; i++) {
         for (size_t j = 0; j < _col; j++) {
             this->at(i, j) -= rhs;
@@ -341,7 +337,7 @@ Matrix &Matrix::operator-=(const double &rhs) {
     return *this;
 }
 
-Matrix &Matrix::operator*=(const double &rhs) {
+Matrix &Matrix::operator*=(double rhs) {
     for (size_t i = 0; i < _row; i++) {
         for (size_t j = 0; j < _col; j++) {
             this->at(i, j) *= rhs;
@@ -351,19 +347,19 @@ Matrix &Matrix::operator*=(const double &rhs) {
     return *this;
 }
 
-Matrix Matrix::operator+(const double &rhs) const {
+Matrix Matrix::operator+(double rhs) const {
     Matrix tmp {*this};
     tmp += rhs;
     return tmp;
 }
 
-Matrix Matrix::operator-(const double &rhs) const {
+Matrix Matrix::operator-(double rhs) const {
     Matrix tmp {*this};
     tmp -= rhs;
     return tmp;
 }
 
-Matrix Matrix::operator*(const double &rhs) const {
+Matrix Matrix::operator*(double rhs) const {
     Matrix tmp {*this};
     tmp *= rhs;
     return tmp;
@@ -374,7 +370,6 @@ Matrix Matrix::mult_matrix(const Matrix &rhs) const {
         throw std::invalid_argument("Matricies have incorrect size");
     }
 
-    // double tmp = 0;
     Matrix res {_row, rhs.col()};
 
     for (size_t i = 0; i < _row; i++) {
@@ -402,14 +397,11 @@ Matrix Matrix::transpose() const {
     return res;
 }
 
-
-
 Matrix Matrix::inverse() const {
     if (_row != _col) {
         throw std::invalid_argument("Matrix has incorrent shape");
     }
     Matrix res {_row, _col};
-    // double tmp;
 
     Matrix I {_row, _col};
 
@@ -439,11 +431,6 @@ Matrix Matrix::inverse() const {
             }
         }
 
-        // if (abs(m_all.at(k, i)) < EPS) {
-        //     throw std::invalid_argument("There is no inverse");
-        // }
-
-        // my_swap(a[i], a[k]);
         m_all.my_swap(i, k);
 
         double tmp = m_all.at(i, i);
@@ -478,7 +465,6 @@ double Matrix::determinant() const {
     }
     size_t n = _row;
     Matrix mat {*this};
-    // double tmp;
 
     double det = 1;
     for (size_t i = 0; i < n; i++) {
@@ -524,22 +510,14 @@ Matrix Matrix::my_swap(size_t i, size_t j) {
     return *this;
 }
 
-// Matrix add(const Vector &lhs, const Matrix &rhs, size_t axis) {
-//     return rhs.add(lhs, axis);
-// }
-
-// Matrix sub(const Vector &lhs, const Matrix &rhs, size_t axis) {
-//     return rhs.sub(lhs, axis);
-// }
-
-Matrix operator+(const double &lhs, const Matrix &rhs) {
+Matrix operator+(double lhs, const Matrix &rhs) {
     return rhs + lhs;
 }
 
-Matrix operator-(const double &lhs, const Matrix &rhs) {
+Matrix operator-(double lhs, const Matrix &rhs) {
     return -(rhs - lhs);
 }
 
-Matrix operator*(const double &lhs, const Matrix &rhs) {
+Matrix operator*(double lhs, const Matrix &rhs) {
     return rhs * lhs;
 }

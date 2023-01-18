@@ -18,7 +18,7 @@ class Matrix {
     Matrix &operator=(Matrix &&rhs);
 
     double &at(size_t i, size_t j);
-    const double &at(size_t i, size_t j) const;
+    double at(size_t i, size_t j) const;
 
     Vector get_row(size_t i) const;
     Vector get_col(size_t j) const;
@@ -46,13 +46,13 @@ class Matrix {
     Matrix sub(const Vector &rhs, size_t axis) const;
     Vector mult(const Vector &rhs) const;
 
-    Matrix &operator+=(const double &rhs);
-    Matrix &operator-=(const double &rhs);
-    Matrix &operator*=(const double &rhs);
+    Matrix &operator+=(double rhs);
+    Matrix &operator-=(double rhs);
+    Matrix &operator*=(double rhs);
 
-    Matrix operator+(const double &rhs) const;
-    Matrix operator-(const double &rhs) const;
-    Matrix operator*(const double &rhs) const;
+    Matrix operator+(double rhs) const;
+    Matrix operator-(double rhs) const;
+    Matrix operator*(double rhs) const;
 
     Matrix mult_matrix(const Matrix &rhs) const;
 
@@ -68,10 +68,6 @@ class Matrix {
     std::unique_ptr<double[]> _data;
 };
 
-Matrix operator+(const Vector &lhs, const Matrix &rhs);
-Matrix operator-(const Vector &lhs, const Matrix &rhs);
-// Matrix operator*(const Vector &lhs, const Matrix &rhs);
-
-Matrix operator+(const double &lhs, const Matrix &rhs);
-Matrix operator-(const double &lhs, const Matrix &rhs);
-Matrix operator*(const double &lhs, const Matrix &rhs);
+Matrix operator+(double lhs, const Matrix &rhs);
+Matrix operator-(double lhs, const Matrix &rhs);
+Matrix operator*(double lhs, const Matrix &rhs);

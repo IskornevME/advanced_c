@@ -17,7 +17,7 @@ class Vector {
     Vector &operator=(Vector &&rhs);
 
     double &operator[](size_t i);
-    const double &operator[](size_t i) const;
+    double operator[](size_t i) const;
 
     size_t size() const;
 
@@ -33,13 +33,13 @@ class Vector {
     Vector operator-(const Vector &rhs) const;
     Vector operator*(const Vector &rhs) const;
 
-    Vector &operator+=(const double &rhs);
-    Vector &operator-=(const double &rhs);
-    Vector &operator*=(const double &rhs);
+    Vector &operator+=(double rhs);
+    Vector &operator-=(double rhs);
+    Vector &operator*=(double rhs);
 
-    Vector operator+(const double &rhs) const;
-    Vector operator-(const double &rhs) const;
-    Vector operator*(const double &rhs) const;
+    Vector operator+(double rhs) const;
+    Vector operator-(double rhs) const;
+    Vector operator*(double rhs) const;
 
     Vector mult(const Matrix &rhs) const;
 
@@ -48,6 +48,6 @@ class Vector {
     std::unique_ptr<double[]> _data;
 };
 
-Vector operator+(const double &lhs, const Vector &rhs);
-Vector operator-(const double &lhs, const Vector &rhs);
-Vector operator*(const double &lhs, const Vector &rhs);
+Vector operator+(double lhs, const Vector &rhs);
+Vector operator-(double lhs, const Vector &rhs);
+Vector operator*(double lhs, const Vector &rhs);

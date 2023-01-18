@@ -1,3 +1,5 @@
 hw-2/build/
-hw-2/database/
-hw-2/main.cpp
+database/
+main.cpp
+hw-2/tests/googletest
+hw-3/

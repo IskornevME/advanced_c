@@ -16,7 +16,7 @@ function check_log() {
     fi
 }
 
-FILES="lib/*.cpp lib/*.h"
+FILES="lib/matrix.cpp lib/vector.cpp lib/matrix.h lib/vector.h"
 
 print_header "RUN cppcheck"
 check_log "cppcheck ${FILES} --language=c++ --enable=all --inconclusive --error-exitcode=1 -I lib --suppress=missingIncludeSystem --suppress=unusedFunction" "\(information\)"

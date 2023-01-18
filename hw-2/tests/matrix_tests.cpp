@@ -75,8 +75,6 @@ TEST(matrix, assign_operator) {
 
 TEST(matrix, get_row) {
     Matrix m {{4, 2, -5, 7, 2, 0}, 3, 2};
-    // std::vector<double> row_1 = {4, 2};
-    // std::vector<double> row_2 = {-5, 7};
     Vector res_1 = m.get_row(0);
     Vector res_2 = m.get_row(1);
     EXPECT_EQ(2, res_1.size());
@@ -269,7 +267,6 @@ TEST(matrix, mult_by_vector) {
     Matrix m {{3, 2, 4, -1, 5, -10, 3, 0, 43, -20, 12, 2}, 3, 4};
     Vector v {{7, 5, 3, 0}};
     Vector res = m.mult(v);
-    // std::vector<double> true_res_row = {43, -6, 237};
     EXPECT_EQ(3, res.size());
     EXPECT_NEAR(res[0], 43, EPS);
     EXPECT_NEAR(res[1], -6, EPS);
@@ -416,15 +413,12 @@ TEST(matrix, determinant_matrix) {
     Matrix A {{3, 2, 4, -1, 5, -10, 3, 0, 43}, 3, 3};
     EXPECT_NEAR(A.determinant(), 611, EPS);
 
-    // A = {{0, 0, 0, -1, 5, -10, 3, 0, 43}, 3, 3};
-    // EXPECT_NEAR(A.determinant(), 0, EPS);
+    Matrix M_dim_4 {{1, 4, -10, 8, 4, 0, -1, 54, 11, 28, 0, -100, 0, 1, 2, 3}, 4, 4};
+    EXPECT_NEAR(M_dim_4.determinant(), -19880, EPS);
 
-    // Vector a {{1, 5 ,-10, 45}};
-    // Vector b {{7, 0, 10, 3}};
-    // Vector c {{-3, 23 ,100, 8}};
-    // Vector d {{-12, 3, 0 ,4}};
-    // Matrix mat {{a, b, c ,d}};
-    // EXPECT_NEAR(mat.determinant(), -67800, EPS);
+    Matrix M_dim_5 {{1, 2, -1, 4, 0, 4, 0, 2, 4, 65, 21, 205, 0,
+     -100, 7, 0, 1, 2, 3, 4, 0, 43, 0, -81, 1}, 5, 5};
+    EXPECT_NEAR(M_dim_5.determinant(), 190390, EPS);
 }
 
 TEST(matrix, inverse_matrix) {
@@ -447,6 +441,18 @@ TEST(matrix, inverse_matrix) {
     for (size_t i = 0; i < res_b.row(); i++) {
         for (size_t j = 0; j < res_b.col(); j++) {
             EXPECT_NEAR(res_b.at(i, j), true_res[i * res_b.col() + j], EPS);
+        }
+    }
+
+    Matrix M_dim_4 {{1, 4, -10, 8, 4, 0, -1, 54, 11, 28, 0, -100, 0, 1, 2, 3}, 4, 4};
+    true_res = {-401./2485, 386./2485, 122./2485, -1812./2485, 2021./19880, -353./9940,
+     73./19880, 1219./2485, -19./284, 1./142, 1./284, 12./71, 3./280, 1./140, -1./280, 2./35};
+    Matrix M_dim_4_inv = M_dim_4.inverse();
+    EXPECT_EQ(4, M_dim_4_inv.row());
+    EXPECT_EQ(4, M_dim_4_inv.col());
+    for (size_t i = 0; i < M_dim_4_inv.row(); i++) {
+        for (size_t j = 0; j < M_dim_4_inv.col(); j++) {
+            EXPECT_NEAR(M_dim_4_inv.at(i, j), true_res[i * M_dim_4_inv.col() + j], EPS);
         }
     }
 }

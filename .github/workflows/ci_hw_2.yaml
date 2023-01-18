@@ -1,0 +1,54 @@
+name: CMake_hw_2
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure system
+      run: |
+        sudo apt-get install -y valgrind python3 pip
+        pip install ValgrindCI
+        git clone https://github.com/google/googletest ${{github.workspace}}/hw-2/tests/googletest
+    - name: Configure CMake
+      working-directory: ${{github.workspace}}/hw-2/
+      run: cmake -S . -B ${{github.workspace}}/hw-2/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/hw-2/build --config ${{env.BUILD_TYPE}}
+
+    - name: Test+valgrind
+      working-directory: ${{github.workspace}}/hw-2/build
+      run: valgrind --error-exitcode=1 --tool=memcheck --xml=yes --xml-file=valgrind_out.xml ./tests/matrix_test
+
+  clang-format-checking:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: RafikFarhad/clang-format-github-action@v2.1.0
+        with:
+          sources: "lib/*.h,lib/*.cpp,tests/*.cpp"
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure system
+      run: |
+        sudo apt-get install -y python3 pip
+        sudo apt-get install -y cppcheck clang-tidy
+        pip install cpplint
+    - name: Run
+      working-directory: ${{github.workspace}}/hw-2/
+      run: ./linters/run.sh
